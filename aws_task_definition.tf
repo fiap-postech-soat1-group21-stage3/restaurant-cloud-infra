@@ -9,8 +9,8 @@ resource "aws_ecs_task_definition" "this" {
 
   container_definitions = jsonencode([
     {
-      name      = "restaurant-task-container"
-      image     = "731771597147.dkr.ecr.us-east-1.amazonaws.com/restaurant-ecr:latest"
+      name      = "${var.AWS_TASK_CONTAINER_NAME}"
+      image     = "${aws_ecr_repository.ecr.name}:latest"
       essential = true
       cpu       = 1024
       memory    = 3072
@@ -23,10 +23,10 @@ resource "aws_ecs_task_definition" "this" {
       }]
       environment = [
         { "name" : "API_PORT", "value" : "8080" },
-        { "name" : "MYSQL_DSN", "value" : "restaurantuser:restaurantpass@tcp(restaurant.cjs7ovml0deq.us-east-1.rds.amazonaws.com:3306)/restaurant?multiStatements=true&&charset=utf8mb4&parseTime=True&loc=Local" },
+        { "name" : "MYSQL_DSN", "value" : "${var.DB_USER}:${var.DB_PASSWORD}@tcp(${data.terraform_remote_state.restaurant_database}:${var.DB_PORT})/${var.DB_NAME}?multiStatements=true&&charset=utf8mb4&parseTime=True&loc=Local" },
       ]
       healthCheck = {
-        command : ["CMD-SHELL", "wget --spider --server-response http://localhost:8080/api/v1/health || exit 1"],
+        command : ["CMD-SHELL", "wget --spider --server-response http://localhost:8080${APP_HEALTH_TEST_PATH} || exit 1"],
         startPeriod : 30,
         interval : 10,
         timeout : 15,
@@ -36,8 +36,8 @@ resource "aws_ecs_task_definition" "this" {
         "logDriver" : "awslogs",
         "options" : {
           "awslogs-create-group" : "true",
-          "awslogs-group" : "/ecs/test-task",
-          "awslogs-region" : "us-east-1",
+          "awslogs-group" : "/ecs/${var.AWS_TASK_CONTAINER_NAME}",
+          "awslogs-region" : "${var.AWS_REGION}",
           "awslogs-stream-prefix" : "ecs"
       } }
 
