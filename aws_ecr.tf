@@ -1,5 +1,5 @@
 resource "aws_ecr_repository" "ecr" {
-  name                 = var.AWS_ECS_CLUSTER
+  name                 = var.AWS_ECR_REPOSITORY
   image_tag_mutability = "MUTABLE"
 }
 

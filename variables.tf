@@ -10,6 +10,9 @@ variable "AWS_REGION" {
 variable "AWS_ECS_CLUSTER" {
   description = "Restaurant AWS ECS cluster name"
 }
+variable "AWS_ECR_REPOSITORY" {
+  description = "Restaurant AWS ECR name"
+}
 variable "AWS_TASK_CONTAINER_NAME" {
   description = "Restaurant AWS ECS TASK container name"
 }

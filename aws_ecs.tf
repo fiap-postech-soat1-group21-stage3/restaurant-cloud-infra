@@ -1,5 +1,5 @@
 resource "aws_ecs_cluster" "cluster_name" {
-  name = "restaurant-cluster"
+  name = var.AWS_ECS_CLUSTER
 }
 
 resource "aws_ecs_service" "this" {
