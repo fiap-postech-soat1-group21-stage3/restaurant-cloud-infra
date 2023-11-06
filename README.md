@@ -34,5 +34,7 @@ terraform apply
 Todas as mudanças realizadas no código e mergeadas na branch `main` iniciarão a pipeline no GitHub Actions. Essa pipeline é responsável por verificar o código e realizar o deploy dos serviços na núvem de forma automática.
 
 ## Diagrama
-![image](https://github.com/fiap-postech-soat1-group21/restaurant-aws-ecs/assets/83218983/f270ecf4-a1e7-412d-80ff-3ad3b67f46fa)
+![image](https://github.com/fiap-postech-soat1-group21/restaurant-cloud-infra/assets/83218983/041e113f-1fa8-4784-9e1b-7f791405d969)
+
+
 
